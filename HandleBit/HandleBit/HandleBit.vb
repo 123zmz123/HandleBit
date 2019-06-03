@@ -279,4 +279,8 @@
         End Try
     End Function
 
+    'TODO List
+    '做一个函数 输入 字符串 如 010101 然后返回值是 0x15 或者 21
+    '这个函数名暂定为 GenerateNumFromBinaryInteger()
+
 End Class
