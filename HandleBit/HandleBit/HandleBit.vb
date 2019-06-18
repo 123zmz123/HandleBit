@@ -265,12 +265,11 @@
                 Return False
             End If
 
-            pos = pos Mod 16
-
-            init1 = Convert.ToUInt32(2 ^ len - 1)
-            init2 = Not (init1 << pos)
+            pos = pos Mod 16                       'pos=10
+            init1 = Convert.ToUInt32(2 ^ len - 1)  'init1=4
+            init2 = Not (init1 << pos)             '左移再非
             val = val And init1
-            val <<= pos
+            val <<= pos                            'val=val<<pos
             d = d And init2
             d = d Or val
             Return True
@@ -278,6 +277,30 @@
             Throw ex
         End Try
     End Function
+
+    Public Shared Function GenerateNumFromBinaryInteger(ByVal Dnum As String)
+        Try
+            Dim x As String
+            Dim n As Integer
+            Dim y As Integer
+            y = 0
+            n = 0
+            For i = Len(Dnum) To 1 Step -1
+                x = Mid(Dnum, i, 1)
+                If x = "1" Or x = "0" Then
+                    y = y + Val(x) * 2 ^ n
+                    n = n + 1
+                Else
+                    y = 0
+                    Exit For
+                End If
+            Next
+            Return y
+        Catch ex As Exception
+            Throw ex
+        End Try
+    End Function
+
 
     'TODO List
     '做一个函数 输入 字符串 如 010101 然后返回值是 0x15 或者 21
